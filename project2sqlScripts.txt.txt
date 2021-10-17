@@ -1,0 +1,45 @@
+Create DataBase project2;
+USE project2;
+
+Create Table usertable
+(userid int unsigned not null auto_increment Primary key,
+username varchar(50) unique not null,
+name varchar (50) not null,
+password varchar(100),
+profilepic varchar(500)
+);
+
+Create Table friendtable
+(friendtableid int unsigned not null auto_Increment primary key,
+requesterid int unsigned not null,
+requesteeid int unsigned not null,
+status varchar(15),
+Foreign key (requesterid) references usertable(userid),
+Foreign key (requesteeid) references usertable(userid)
+);
+
+Create Table blockusertable
+(blockusertableid int unsigned not null auto_Increment primary key,
+blockerid int unsigned not null,
+blockeeid int unsigned not null,
+Foreign key (blockerid) references usertable(userid),
+Foreign key (blockeeid) references usertable(userid)
+)
+
+Create table chattable
+(chatid int unsigned not null auto_Increment primary key,
+userid int unsigned not null,
+groupname varchar(15),
+status varchar(10),
+Foreign key (userid) references usertable(userid)
+);
+
+Create table chatlogtable
+(chatlogid int unsigned not null auto_Increment primary key,
+userid int unsigned not null,
+message varchar(1000),
+senttime TIMESTAMP,
+chatid int unsigned not null,
+Foreign key (userid) references usertable(userid),
+Foreign key (chatid) references chattable(chatid)
+);
